@@ -7,7 +7,7 @@ const updateResourceForm = document.getElementById('updateResourceForm');
 const deleteResourceForm = document.getElementById('deleteResourceForm');
 const output = document.getElementById('output');
 
-function translateRelativeTime(postedAt) {
+function translateToRelativeTime(postedAt) {
     const now = new Date();
     const postedDate = new Date(postedAt);
     
@@ -66,7 +66,7 @@ function createOfferFrame(offer) {
 
     const offerPublicationTime = document.createElement('div');
     offerPublicationTime.classList.add('offer-publication-time');
-    offerPublicationTime.textContent = "Offre publiée " + translateRelativeTime(offer.postedAt);
+    offerPublicationTime.textContent = "Offre publiée " + translateToRelativeTime(offer.postedAt);
 
     offerElement.appendChild(offerTitle);
     offerElement.appendChild(offerCompany);
