@@ -1,4 +1,5 @@
 import { resourceService } from '../services/offer.service.js';
+import { userService } from '../services/user.service.js';
 import { authService } from '../services/auth.service.js';
 
 const createResourceForm = document.getElementById('createResourceForm');
@@ -82,6 +83,12 @@ window.addEventListener('DOMContentLoaded', async () => {
 	if (!authService.isAuthenticated()) {
 		window.location.href = '/besides-front/views/signin/signin.html';
 		return;
+	}
+
+	const currentUser = JSON.parse(userService.getUser());
+	if (currentUser) {
+		const username = document.getElementById('username');
+		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
 	}
 
 	try {
