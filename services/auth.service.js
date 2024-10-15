@@ -46,11 +46,6 @@ class AuthService {
 		}
 	}
 
-	isAuthenticated() {
-		const token = tokenService.getToken();
-		return token && isTokenValid(token);
-	}
-  
 	isTokenValid(token) {
 		const decodedToken = this.decodeJwt(token);
 		if (!decodedToken) return false;
@@ -71,6 +66,11 @@ class AuthService {
 			console.error('Error decoding token:', error);
 			return null;
 		}
+	}
+
+	isAuthenticated() {
+		const token = tokenService.getToken();
+		return token && this.isTokenValid(token);
 	}
 }
 export const authService = new AuthService();
