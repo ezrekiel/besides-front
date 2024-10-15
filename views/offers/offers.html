@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="offers.css">
+	<title>Offers</title>
+</head>
+<body>
+	<header>
+		<button routerLink="/dashboard" class="header-logo">
+			<img src="../../assets/besides-logo.png">
+		</button>
+		
+		<div class="profile-container">
+			{{ username() }}
+			<button class="profile-button" [cdkMenuTriggerFor]="menu">
+				<div class="avatar">
+					<svg class="avatar-svg" viewBox="0 0 48 48"><path d="M24,12 C28.418278,12 32,15.581722 32,20 L32,22 C32,26.418278 28.418278,30 24,30 C19.581722,30 16,26.418278 16,22 L16,20 C16,15.581722 19.581722,12 24,12 Z M24,32 C33.8734019,32 42.1092023,38.8710577 44,48 L4,48 C5.89079771,38.8710577 14.1265981,32 24,32 Z"></path></svg>
+				</div>
+				<div class="chevron">
+					<svg viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M8.14644661,10.1464466 C8.34170876,9.95118446 8.65829124,9.95118446 8.85355339,10.1464466 L12.4989857,13.7981758 L16.1502401,10.1464466 C16.3455022,9.95118446 16.6620847,9.95118446 16.8573469,10.1464466 C17.052609,10.3417088 17.052609,10.6582912 16.8573469,10.8535534 L12.4989857,15.2123894 L8.14644661,10.8535534 C7.95118446,10.6582912 7.95118446,10.3417088 8.14644661,10.1464466 Z"></path></svg>
+				</div>
+			</button>
+		</div>
+	</header>
+
+	<div class="content-wrapper">
+		<div class="wrapper">
+			<div class="offers-container">
+				<!--
+				<div class="offer">
+					<div class="offer-title"><b>Distributeur de flyers H/F</b></div>
+					<div class="offer-company">Conforama</div>
+					<div class="offer-location">30310 Vergèze</div>
+					<div class="tags">
+						<div class="tag">CDI</div>
+						<div class="tag">2 000 € par mois</div>
+						<div class="tag">Temps partiel</div>
+					</div>
+					<div class="offer-publication-time">Offre publiée il y a 6 jours</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="../../modules/offer.module.js"></script>
+</body>
+</html>

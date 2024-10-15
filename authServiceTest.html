@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AuthService Test</title>
+</head>
+<body>
+	<h1>Test AuthService & TokenService</h1>
+
+	<h2>Login</h2>
+	<form id="loginForm">
+		<label for="login-username">Username:</label>
+		<input type="text" id="login-username" required><br>
+
+		<label for="login-password">Password:</label>
+		<input type="password" id="login-password" required><br>
+
+		<button type="submit">Login</button>
+	</form>
+
+	<h2>Signup</h2>
+	<form id="signupForm">
+		<label for="signup-username">Username:</label>
+		<input type="text" id="signup-username" required><br>
+
+		<label for="signup-password">Password:</label>
+		<input type="password" id="signup-password" required><br>
+
+		<label for="signup-firstname">Firstname:</label>
+		<input type="firstname" id="signup-firstname" required><br>
+
+		<label for="signup-lastname">Lastname:</label>
+		<input type="lastname" id="signup-lastname" required><br>
+
+		<button type="submit">Signup</button>
+	</form>
+
+	<h2>Test Token</h2>
+	<label for="token-input">Token:</label>
+	<input type="text" id="token-input"><br>
+
+	<button id="validateTokenBtn">Check Token Validity</button>
+	<button id="decodeTokenBtn">Decode Token</button>
+
+	<pre id="output"></pre>
+
+	<script type="module" src="./modules/signin.module.js"></script>
+</body>
+</html>

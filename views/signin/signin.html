@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="signin.css">
+	<title>Signin</title>
+</head>
+<body>
+	<div class="content-wrapper">
+		<h1>Se connecter</h1>
+		<div class="signin-container">
+			<form id="signin-form" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+				<label for="username">Nom d'utilisateur</label>
+				<input type="text" id="username" formControlName="username" required>
+	
+				<label for="password">Mot de passe</label>
+				<input type="password" id="password" formControlName="password" required>
+				
+				<button type="submit" class="submit-button">Connexion</button>
+			</form>
+		</div>
+	
+		<div class="signup-switch-container">
+			<span>Pas de compte?</span><a href="../signup/signup.html">Créér un compte</a>
+		</div>
+	</div>
+
+	<script type="module" src="../../modules/signin.module.js"></script>
+</body>
+</html>
