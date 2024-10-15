@@ -10,7 +10,7 @@
 	<div class="content-wrapper">
 		<h1>Créer un compte</h1>
 		<div class="signup-container">
-			<form id="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+			<form id="signup-form">
 				<label for="firstname">Prénom <span class="required">*</span></label>
 				<input type="text" id="firstname" formControlName="firstname" required>
 		
@@ -34,5 +34,7 @@
 			<span>Déjà un compte?</span><a href="../signin/signin.html">Se connecter</a>
 		</div>
 	</div>
+
+	<script type="module" src="../../modules/signup.module.js"></script>
 </body>
 </html>
