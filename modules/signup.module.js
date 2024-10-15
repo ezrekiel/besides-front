@@ -1,14 +1,11 @@
 import { authService } from '../services/auth.service.js';
-import { tokenService } from '../services/token.service.js';
 
 const signupForm = document.getElementById('signup-form');
 
 window.addEventListener('DOMContentLoaded', () => {
-	const token = tokenService.getToken();
-	if (token && authService.isTokenValid(token)) {
-		const currentPath = window.location.pathname;
-		const newPath = currentPath.replace('/signup/signup.html', '/offers/offers.html');
-		window.location.href = newPath;
+	if (authService.isAuthenticated()) {
+		window.location.href = '/besides-front/views/offers/offers.html';
+		return;
 	}
 });
 
@@ -25,10 +22,7 @@ signupForm.addEventListener('submit', async (e) => {
 		const signupResponse = await authService.signup(signupForm);
 		console.log(signupResponse);
 
-		const currentPath = window.location.pathname;
-		const newPath = currentPath.replace('/signup/signup.html', '/signin/signin.html');
-		
-		window.location.href = newPath;
+		window.location.href = '/besides-front/views/signin/signin.html';
 	} catch (error) {
 		console.log(error.message);
 	}

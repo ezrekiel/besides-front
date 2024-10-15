@@ -1,4 +1,5 @@
 import { resourceService } from '../services/offer.service.js';
+import { authService } from '../services/auth.service.js';
 
 const createResourceForm = document.getElementById('createResourceForm');
 const getAllResourcesBtn = document.getElementById('getAllResourcesBtn');
@@ -78,6 +79,11 @@ function createOfferFrame(offer) {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
+	if (!authService.isAuthenticated()) {
+		window.location.href = '/besides-front/views/signin/signin.html';
+		return;
+	}
+
 	try {
 		const offers = await resourceService.getAllResources();
 		console.log(offers);

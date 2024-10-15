@@ -1,3 +1,6 @@
+import { tokenService } from './token.service.js';
+import { userService } from './user.service.js';
+
 class AuthService {
 	constructor() {
 		this.AUTH_ENDPOINT = 'https://job.jiko-soft.com/auth';
@@ -15,8 +18,11 @@ class AuthService {
 			});
 
 			const data = await response.json();
-			if (response.ok) return data;
-			else throw new Error(data.message);
+			if (response.ok) {
+				tokenService.setToken(data.token, data.expiryDate);
+				userService.setUser(JSON.stringify(data.user));
+				return data;
+			} else throw new Error(data.message);
 		} catch (error) {
 			console.error('Login error:', error);
 			throw error;
@@ -38,6 +44,11 @@ class AuthService {
 			console.error('Signup error:', error);
 			throw error;
 		}
+	}
+
+	isAuthenticated() {
+		const token = tokenService.getToken();
+		return token && isTokenValid(token);
 	}
   
 	isTokenValid(token) {

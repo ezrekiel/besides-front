@@ -1,4 +1,5 @@
 import { resourceService } from '../services/resource.service.js';
+import { authService } from '../services/auth.service.js';
 
 const createResourceForm = document.getElementById('createResourceForm');
 const getAllResourcesBtn = document.getElementById('getAllResourcesBtn');
@@ -6,6 +7,13 @@ const getResourceForm = document.getElementById('getResourceForm');
 const updateResourceForm = document.getElementById('updateResourceForm');
 const deleteResourceForm = document.getElementById('deleteResourceForm');
 const output = document.getElementById('output');
+
+window.addEventListener('DOMContentLoaded', () => {
+	if (!authService.isAuthenticated()) {
+		window.location.href = '/besides-front/views/signin/signin.html';
+		return;
+	}
+});
 
 // Handle creating a resource
 createResourceForm.addEventListener('submit', async (e) => {
