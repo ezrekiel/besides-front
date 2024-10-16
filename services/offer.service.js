@@ -1,6 +1,6 @@
 import { tokenService } from './token.service.js';
 
-class ResourceService {
+class OfferService {
 	constructor() {
 		this.RESOURCE_ENDPOINT = 'https://job.jiko-soft.com/offer';
 		this.httpHeaders = {
@@ -16,8 +16,8 @@ class ResourceService {
 		};
 	}
 
-	// Fetch all resources
-	async getAllResources() {
+	// Fetch all offer
+	async getAllOffers() {
 		try {
 			const response = await fetch(this.RESOURCE_ENDPOINT, {
 				method: 'GET',
@@ -27,14 +27,14 @@ class ResourceService {
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 			return await response.json();
 		} catch (error) {
-			console.error('Unable to fetch resources:', error.message);
+			console.error('Unable to fetch offer:', error.message);
 		}
 	}
 
-	// Fetch a resource by ID
-	async getResourceById(resourceID) {
+	// Fetch a offer by ID
+	async getOfferById(offerID) {
 		try {
-			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${resourceID}`, {
+			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${offerID}`, {
 				method: 'GET',
 				headers: this._getHeadersWithAuth()
 			});
@@ -42,46 +42,46 @@ class ResourceService {
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 			return await response.json();
 		} catch (error) {
-			console.error('Unable to fetch resource:', error.message);
+			console.error('Unable to fetch offer:', error.message);
 		}
 	}
 
-	// Create a new resource
-	async createResource(resourceName) {
+	// Create a new offer
+	async createOffer(offerName) {
 		try {
 			const response = await fetch(this.RESOURCE_ENDPOINT, {
 				method: 'POST',
 				headers: this._getHeadersWithAuth(),
-				body: JSON.stringify({ resourceName })
+				body: JSON.stringify({ offerName })
 			});
 			
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 			return await response.json();
 		} catch (error) {
-			console.error('Unable to create resource:', error.message);
+			console.error('Unable to create offer:', error.message);
 		}
 	}
 
-	// Update a resource by ID
-	async updateResource(resourceID, resourceName) {
+	// Update a offer by ID
+	async updateOffer(offerID, offerName) {
 		try {
-			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${resourceID}`, {
+			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${offerID}`, {
 				method: 'PUT',
 				headers: this._getHeadersWithAuth(),
-				body: JSON.stringify({ resourceName })
+				body: JSON.stringify({ offerName })
 			});
 			
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 			return await response.json();
 		} catch (error) {
-			console.error('Unable to update resource:', error.message);
+			console.error('Unable to update offer:', error.message);
 		}
 	}
 
-	// Delete a resource by ID
-	async deleteResource(resourceID) {
+	// Delete a offer by ID
+	async deleteOffer(offerID) {
 		try {
-			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${resourceID}`, {
+			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${offerID}`, {
 				method: 'DELETE',
 				headers: this._getHeadersWithAuth()
 			});
@@ -89,9 +89,9 @@ class ResourceService {
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 			return await response.json();
 		} catch (error) {
-			console.error('Unable to delete resource:', error.message);
+			console.error('Unable to delete offer:', error.message);
 		}
 	}
 }
 
-export const resourceService = new ResourceService();
+export const offerService = new OfferService();

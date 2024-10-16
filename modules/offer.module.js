@@ -1,12 +1,12 @@
-import { resourceService } from '../services/offer.service.js';
+import { offerService } from '../services/offer.service.js';
 import { userService } from '../services/user.service.js';
 import { authService } from '../services/auth.service.js';
 
-const createResourceForm = document.getElementById('createResourceForm');
-const getAllResourcesBtn = document.getElementById('getAllResourcesBtn');
-const getResourceForm = document.getElementById('getResourceForm');
-const updateResourceForm = document.getElementById('updateResourceForm');
-const deleteResourceForm = document.getElementById('deleteResourceForm');
+const createOfferForm = document.getElementById('createOfferForm');
+const getAllOffersBtn = document.getElementById('getAllOffersBtn');
+const getOfferForm = document.getElementById('getOfferForm');
+const updateOfferForm = document.getElementById('updateOfferForm');
+const deleteOfferForm = document.getElementById('deleteOfferForm');
 const output = document.getElementById('output');
 
 function translateToRelativeTime(postedAt) {
@@ -92,77 +92,77 @@ window.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	try {
-		const offers = await resourceService.getAllResources();
+		const offers = await offerService.getAll();
 		console.log(offers);
 		if (!offers) return;
 		offers.forEach(offer => {
 			createOfferFrame(offer);
 		});
 	} catch (error) {
-		console.log(`Fetching Resources Failed: ${error.message}`);
+		console.log(`Fetching Offers Failed: ${error.message}`);
 	}
 });
 
 
-// Handle creating a resource
-createResourceForm.addEventListener('submit', async (e) => {
+// Handle creating a offer
+createOfferForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	const resourceName = document.getElementById('create-resource-name').value;
+	const offerName = document.getElementById('create-offer-name').value;
 
 	try {
-		const createResponse = await resourceService.createResource(resourceName);
-		output.textContent = `Resource Created: ${JSON.stringify(createResponse)}`;
+		const createResponse = await offerService.createOffer(offerName);
+		output.textContent = `Offer Created: ${JSON.stringify(createResponse)}`;
 	} catch (error) {
-		output.textContent = `Resource Creation Failed: ${error.message}`;
+		output.textContent = `Offer Creation Failed: ${error.message}`;
 	}
 });
 
-// Handle fetching all resources
-getAllResourcesBtn.addEventListener('click', async () => {
+// Handle fetching all offers
+getAllOffersBtn.addEventListener('click', async () => {
 	try {
-		const allResources = await resourceService.getAllResources();
-		output.textContent = `All Resources: ${JSON.stringify(allResources, null, 2)}`;
+		const allOffers = await offerService.getAllOffers();
+		output.textContent = `All Offers: ${JSON.stringify(allOffers, null, 2)}`;
 	} catch (error) {
-		output.textContent = `Fetching Resources Failed: ${error.message}`;
+		output.textContent = `Fetching Offers Failed: ${error.message}`;
 	}
 });
 
-// Handle fetching a specific resource by ID
-getResourceForm.addEventListener('submit', async (e) => {
+// Handle fetching a specific offer by ID
+getOfferForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	const resourceId = document.getElementById('get-resource-id').value;
+	const offerId = document.getElementById('get-offer-id').value;
 
 	try {
-		const resource = await resourceService.getResourceById(resourceId);
-		output.textContent = `Resource: ${JSON.stringify(resource, null, 2)}`;
+		const offer = await offerService.getOfferById(offerId);
+		output.textContent = `Offer: ${JSON.stringify(offer, null, 2)}`;
 	} catch (error) {
-		output.textContent = `Fetching Resource Failed: ${error.message}`;
+		output.textContent = `Fetching Offer Failed: ${error.message}`;
 	}
 });
 
-// Handle updating a resource by ID
-updateResourceForm.addEventListener('submit', async (e) => {
+// Handle updating a offer by ID
+updateOfferForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	const resourceId = document.getElementById('update-resource-id').value;
-	const resourceName = document.getElementById('update-resource-name').value;
+	const offerId = document.getElementById('update-offer-id').value;
+	const offerName = document.getElementById('update-offer-name').value;
 
 	try {
-		const updateResponse = await resourceService.updateResource(resourceId, resourceName);
-		output.textContent = `Resource Updated: ${JSON.stringify(updateResponse)}`;
+		const updateResponse = await offerService.updateOffer(offerId, offerName);
+		output.textContent = `Offer Updated: ${JSON.stringify(updateResponse)}`;
 	} catch (error) {
-		output.textContent = `Resource Update Failed: ${error.message}`;
+		output.textContent = `Offer Update Failed: ${error.message}`;
 	}
 });
 
-// Handle deleting a resource by ID
-deleteResourceForm.addEventListener('submit', async (e) => {
+// Handle deleting a offer by ID
+deleteOfferForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	const resourceId = document.getElementById('delete-resource-id').value;
+	const offerId = document.getElementById('delete-offer-id').value;
 
 	try {
-		const deleteResponse = await resourceService.deleteResource(resourceId);
-		output.textContent = `Resource Deleted: ${JSON.stringify(deleteResponse)}`;
+		const deleteResponse = await offerService.deleteOffer(offerId);
+		output.textContent = `Offer Deleted: ${JSON.stringify(deleteResponse)}`;
 	} catch (error) {
-		output.textContent = `Resource Deletion Failed: ${error.message}`;
+		output.textContent = `Offer Deletion Failed: ${error.message}`;
 	}
 });
