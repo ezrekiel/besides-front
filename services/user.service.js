@@ -2,7 +2,7 @@ import { tokenService } from './token.service.js';
 
 class UserService {
 	constructor() {
-		this.USER_ENDPOINT = 'http://localhost:4444/user';
+		this.USER_ENDPOINT = 'https://job.jiko-soft.com/user';
 		this.httpHeaders = {
 			'Content-Type': 'application/json',
 		};

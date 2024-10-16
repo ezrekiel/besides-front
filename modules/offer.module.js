@@ -37,7 +37,6 @@ function translateToRelativeTime(postedAt) {
     else return years === 1 ? "il y a 1 an" : `il y a ${years} ans`;
 }
 
-
 function createOfferFrame(offer) {
     const offersContainer = document.querySelector('.offers-container');
 
@@ -85,6 +84,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		return;
 	}
 
+	// Returns username in the header
 	const currentUser = JSON.parse(userService.getUser());
 	if (currentUser) {
 		const username = document.getElementById('username');

@@ -2,7 +2,7 @@ import { tokenService } from './token.service.js';
 
 class ResourceService {
 	constructor() {
-		this.RESOURCE_ENDPOINT = 'http://localhost:4444/resource';
+		this.RESOURCE_ENDPOINT = 'https://job.jiko-soft.com/resource';
 		this.httpHeaders = {
 			'Content-Type': 'application/json',
 		};
