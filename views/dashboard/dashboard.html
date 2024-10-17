@@ -27,7 +27,11 @@
 	<div class="content-wrapper">
 		<div class="resource-list">
 			<div class="buttons-list">
-				<a class="panel-button" href="#">Accueil panel</a>
+				<h1 class="buttons-list-title">Admin panel</h1>
+				<span id="home" class="panel-button">Accueil</span>
+				<span id="users-management" class="panel-button">Gestion utilisateurs</span>
+				<span id="companies-management" class="panel-button">Gestion entreprises</span>
+				<span id="offers-management" class="panel-button">Gestion annonces</span>
 			</div>
 		</div>
 		<div class="content">
@@ -35,10 +39,36 @@
 				<div class="breadcrumb-contents">
 					<span class="current-route">Dashboard</span>
 					<span>></span>
-					<span>Admin Panel</span>
+					<span>Page d'Accueil</span>
 				</div>
 			</div>
-			<div class="main-content"></div>
+			<div class="main-content">
+				<div class="content-name">Utilisateurs</div>
+				<div class="content-table">
+					<table>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>E-mail</th>
+								<th>Edition</th>
+								<th>Supprimer</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Depardieu</td>
+								<td>Gérard</td>
+								<td>test5@mail.com</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script type="module" src="../../modules/dashboard.module.js"></script>

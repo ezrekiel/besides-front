@@ -1,6 +1,9 @@
 import { authService } from '../services/auth.service.js';
 import { userService } from '../services/user.service.js';
 
+const usersManagementButton = document.getElementById('users-management');
+const companiesManagementButton = document.getElementById('companies-management');
+const offersManagementButton = document.getElementById('offers-management');
 const createResourceForm = document.getElementById('createResourceForm');
 const getAllResourcesBtn = document.getElementById('getAllResourcesBtn');
 const getResourceForm = document.getElementById('getResourceForm');
@@ -18,6 +21,35 @@ window.addEventListener('DOMContentLoaded', async () => {
 	if (currentUser) {
 		const username = document.getElementById('username');
 		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
+	}
+});
+
+// Loads the list of all the users
+usersManagementButton.addEventListener('click', async () => {
+	try {
+		console.log('clicked users management button');
+
+		userService.getAllUsers();
+	} catch(error) {
+		console.log(error);
+	}
+});
+
+// Loads the list of all the companies
+companiesManagementButton.addEventListener('click', async () => {
+	try {
+		console.log('clicked companies management button');
+	} catch(error) {
+		console.log(error);
+	}
+});
+
+// Loads the list of all the offers
+offersManagementButton.addEventListener('click', async () => {
+	try {
+		console.log('clicked offers management button');
+	} catch(error) {
+		console.log(error);
 	}
 });
 
