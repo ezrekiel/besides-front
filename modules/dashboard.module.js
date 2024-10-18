@@ -45,9 +45,7 @@ function createResourceTable(parentElement, resources) {
 	const tableBody = domHelper.createHTMLElement('tbody', {}, table);
 	resources.forEach(resource => {
 		const tableBodyRow = domHelper.createHTMLElement('tr', {}, tableBody);
-		Object.keys(resource).forEach(key => {
-			console.log(resource[key]);
-			domHelper.createHTMLElement('td', {}, tableBodyRow, resource[key])});
+		Object.keys(resource).forEach(key => domHelper.createHTMLElement('td', {}, tableBodyRow, resource[key]));
 		domHelper.createHTMLElement('td', {}, tableBodyRow, EDIT_SVG);
 		domHelper.createHTMLElement('td', {}, tableBodyRow, DELETE_SVG);
 	});
