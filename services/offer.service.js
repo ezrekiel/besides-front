@@ -1,8 +1,9 @@
 import { tokenService } from './token.service.js';
+import { Offer } from '../models/offer.model.js';
 
 class OfferService {
 	constructor() {
-		this.RESOURCE_ENDPOINT = 'https://job.jiko-soft.com/offer';
+		this.OFFER_ENDPOINT = 'https://job.jiko-soft.com/offer';
 		this.httpHeaders = {
 			'Content-Type': 'application/json',
 		};
@@ -19,13 +20,30 @@ class OfferService {
 	// Fetch all offer
 	async getAllOffers() {
 		try {
-			const response = await fetch(this.RESOURCE_ENDPOINT, {
+			const response = await fetch(this.OFFER_ENDPOINT, {
 				method: 'GET',
 				headers: this._getHeadersWithAuth()
 			});
 			
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-			return await response.json();
+			const offersResponse = await response.json();
+			const offers = offersResponse.map(offerData => new Offer(
+				offerData.offerID,
+				offerData.title,
+				offerData.companyName,
+				offerData.libelle,
+				offerData.postedAt,
+				offerData.jobType,
+				offerData.workingTime,
+				offerData.contractType,
+				offerData.salary,
+				offerData.adress,
+				offerData.zipCode,
+				offerData.country,
+				offerData.city
+			));
+
+			return offers;
 		} catch (error) {
 			console.error('Unable to fetch offer:', error.message);
 		}
@@ -34,7 +52,7 @@ class OfferService {
 	// Fetch a offer by ID
 	async getOfferById(offerID) {
 		try {
-			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${offerID}`, {
+			const response = await fetch(`${this.OFFER_ENDPOINT}/${offerID}`, {
 				method: 'GET',
 				headers: this._getHeadersWithAuth()
 			});
@@ -49,7 +67,7 @@ class OfferService {
 	// Create a new offer
 	async createOffer(offerName) {
 		try {
-			const response = await fetch(this.RESOURCE_ENDPOINT, {
+			const response = await fetch(this.OFFER_ENDPOINT, {
 				method: 'POST',
 				headers: this._getHeadersWithAuth(),
 				body: JSON.stringify({ offerName })
@@ -65,7 +83,7 @@ class OfferService {
 	// Update a offer by ID
 	async updateOffer(offerID, offerName) {
 		try {
-			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${offerID}`, {
+			const response = await fetch(`${this.OFFER_ENDPOINT}/${offerID}`, {
 				method: 'PUT',
 				headers: this._getHeadersWithAuth(),
 				body: JSON.stringify({ offerName })
@@ -81,7 +99,7 @@ class OfferService {
 	// Delete a offer by ID
 	async deleteOffer(offerID) {
 		try {
-			const response = await fetch(`${this.RESOURCE_ENDPOINT}/${offerID}`, {
+			const response = await fetch(`${this.OFFER_ENDPOINT}/${offerID}`, {
 				method: 'DELETE',
 				headers: this._getHeadersWithAuth()
 			});
