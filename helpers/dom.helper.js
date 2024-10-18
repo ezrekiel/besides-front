@@ -5,13 +5,22 @@ class DOMHelper {
 			if (attributes.hasOwnProperty(key)) element.setAttribute(key, attributes[key]);
 		}
 
-		if (typeof content === 'string') element.textContent = content;
-		else if (content instanceof HTMLElement) element.appendChild(content);
+		if (content instanceof HTMLElement) element.appendChild(content)
+		else if(typeof content === 'string') {
+			if(content.trim().startsWith('<svg')) element.appendChild(this.createSVGElement(content))
+			else element.textContent = content
+		} else element.textContent = String(content);
 
 		if (prepend) parent.prepend(element);
 		else parent.appendChild(element);
 
 		return element;
+	}
+
+	createSVGElement(svgString) {
+		const parser = new DOMParser();
+		const svgDocument = parser.parseFromString(svgString, 'image/svg+xml');
+		return svgDocument.documentElement;
 	}
 }
 export const domHelper = new DOMHelper();
