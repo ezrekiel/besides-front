@@ -1,6 +1,8 @@
 import { authService } from '../services/auth.service.js';
 import { userService } from '../services/user.service.js';
 import { offerService } from '../services/offer.service.js';
+import { domHelper } from '../helpers/dom.helper.js';
+import { EDIT_SVG, DELETE_SVG } from '../helpers/constants.helper.js';
 
 const usersManagementButton = document.getElementById('users-management');
 const companiesManagementButton = document.getElementById('companies-management');
@@ -27,6 +29,28 @@ const propertiesNameMapping = {
 	"offerID": "Id",
     "title": "Offre",
 	"contractType": "Contrat"
+}
+
+function createResourceTable(parentElement, resources) {
+	const table = domHelper.createHTMLElement('table', {}, parentElement);
+
+	//Table Head
+	const tableHead = domHelper.createHTMLElement('thead', {}, table);
+	const tableHeadRow = domHelper.createHTMLElement('tr', {}, tableHead);
+	Object.keys(resources[0]).forEach(key => domHelper.createHTMLElement('th', {}, tableHeadRow, propertiesNameMapping[key]));
+	domHelper.createHTMLElement('th', {}, tableHeadRow, 'Editer');
+	domHelper.createHTMLElement('th', {}, tableHeadRow, 'Supprimer');
+
+	//Table Body
+	const tableBody = domHelper.createHTMLElement('tbody', {}, table);
+	resources.forEach(resource => {
+		const tableBodyRow = domHelper.createHTMLElement('tr', {}, tableBody);
+		Object.keys(resource).forEach(key => {
+			console.log(resource[key]);
+			domHelper.createHTMLElement('td', {}, tableBodyRow, resource[key])});
+		domHelper.createHTMLElement('td', {}, tableBodyRow, EDIT_SVG);
+		domHelper.createHTMLElement('td', {}, tableBodyRow, DELETE_SVG);
+	});
 }
 
 function createTableRow(object) {
@@ -94,7 +118,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
 	}
 });
-
+/*
 unloadTable.addEventListener('click', async () => {
 	try {
 		if(tableElement) {
@@ -103,12 +127,12 @@ unloadTable.addEventListener('click', async () => {
 	} catch (error) {
 		console.log(error);
 	}
-});
+});*/
 
 // Loads the list of all the users
 usersManagementButton.addEventListener('click', async () => {
 	try {
-		unloadTable();
+		//unloadTable();
 
 		const pageInformations = document.getElementById('page-name');
 		const contentTitle = document.getElementById('content-name');
@@ -118,9 +142,9 @@ usersManagementButton.addEventListener('click', async () => {
 		const users = await userService.getAllUsers();
 
 		if (!users) return;
-
 		const tableContainer = document.getElementById('content-table');
-
+		createResourceTable(tableContainer, users);
+/*
 		//1ere étape : construire le tableau
 		const tableElement = document.createElement('table');
 
@@ -155,7 +179,7 @@ usersManagementButton.addEventListener('click', async () => {
 		//4ème étape : insérer les tr
 		users.forEach(user => {
 			createTableRow(user);
-		});
+		});*/
 
 	} catch(error) {
 		console.log(error);
