@@ -5,18 +5,11 @@ import { offerService } from '../services/offer.service.js';
 import { domHelper } from '../helpers/dom.helper.js';
 import { EDIT_SVG, DELETE_SVG, PROPERTIES_NAMES_MAPPING } from '../helpers/constants.helper.js';
 
-const usersManagementButton = document.getElementById('users-management');
 const companiesManagementButton = document.getElementById('companies-management');
 const offersManagementButton = document.getElementById('offers-management');
-const createResourceForm = document.getElementById('createResourceForm');
-const getAllResourcesBtn = document.getElementById('getAllResourcesBtn');
-const getResourceForm = document.getElementById('getResourceForm');
-const updateResourceForm = document.getElementById('updateResourceForm');
-const deleteResourceForm = document.getElementById('deleteResourceForm');
-const output = document.getElementById('output');
+const usersManagementButton = document.getElementById('users-management');
 const usernameButton = document.getElementById('header-username');
 const offersButton = document.getElementById('header-offers');
-const dashboardButton = document.getElementById('header-dashboard');
 
 function createResourceTable(parentElement, resources) {
 	parentElement.replaceChildren();
@@ -113,7 +106,4 @@ usernameButton.addEventListener('click', function() {
 });
 offersButton.addEventListener('click', function() {
 	window.location.href = '/besides-front/views/offers/offers.html';
-});
-dashboardButton.addEventListener('click', function() {
-	window.location.href = '/besides-front/views/dashboard/dashboard.html';
 });
