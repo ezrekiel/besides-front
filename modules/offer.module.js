@@ -2,13 +2,6 @@ import { offerService } from '../services/offer.service.js';
 import { userService } from '../services/user.service.js';
 import { authService } from '../services/auth.service.js';
 
-const createOfferForm = document.getElementById('createOfferForm');
-const getAllOffersBtn = document.getElementById('getAllOffersBtn');
-const getOfferForm = document.getElementById('getOfferForm');
-const updateOfferForm = document.getElementById('updateOfferForm');
-const deleteOfferForm = document.getElementById('deleteOfferForm');
-const output = document.getElementById('output');
-
 function translateToRelativeTime(postedAt) {
     const now = new Date();
     const postedDate = new Date(postedAt);
@@ -92,7 +85,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	try {
-		const offers = await offerService.getAll();
+		const offers = await offerService.getAllOffers();
 		console.log(offers);
 		if (!offers) return;
 		offers.forEach(offer => {
@@ -100,69 +93,5 @@ window.addEventListener('DOMContentLoaded', async () => {
 		});
 	} catch (error) {
 		console.log(`Fetching Offers Failed: ${error.message}`);
-	}
-});
-
-
-// Handle creating a offer
-createOfferForm.addEventListener('submit', async (e) => {
-	e.preventDefault();
-	const offerName = document.getElementById('create-offer-name').value;
-
-	try {
-		const createResponse = await offerService.createOffer(offerName);
-		output.textContent = `Offer Created: ${JSON.stringify(createResponse)}`;
-	} catch (error) {
-		output.textContent = `Offer Creation Failed: ${error.message}`;
-	}
-});
-
-// Handle fetching all offers
-getAllOffersBtn.addEventListener('click', async () => {
-	try {
-		const allOffers = await offerService.getAllOffers();
-		output.textContent = `All Offers: ${JSON.stringify(allOffers, null, 2)}`;
-	} catch (error) {
-		output.textContent = `Fetching Offers Failed: ${error.message}`;
-	}
-});
-
-// Handle fetching a specific offer by ID
-getOfferForm.addEventListener('submit', async (e) => {
-	e.preventDefault();
-	const offerId = document.getElementById('get-offer-id').value;
-
-	try {
-		const offer = await offerService.getOfferById(offerId);
-		output.textContent = `Offer: ${JSON.stringify(offer, null, 2)}`;
-	} catch (error) {
-		output.textContent = `Fetching Offer Failed: ${error.message}`;
-	}
-});
-
-// Handle updating a offer by ID
-updateOfferForm.addEventListener('submit', async (e) => {
-	e.preventDefault();
-	const offerId = document.getElementById('update-offer-id').value;
-	const offerName = document.getElementById('update-offer-name').value;
-
-	try {
-		const updateResponse = await offerService.updateOffer(offerId, offerName);
-		output.textContent = `Offer Updated: ${JSON.stringify(updateResponse)}`;
-	} catch (error) {
-		output.textContent = `Offer Update Failed: ${error.message}`;
-	}
-});
-
-// Handle deleting a offer by ID
-deleteOfferForm.addEventListener('submit', async (e) => {
-	e.preventDefault();
-	const offerId = document.getElementById('delete-offer-id').value;
-
-	try {
-		const deleteResponse = await offerService.deleteOffer(offerId);
-		output.textContent = `Offer Deleted: ${JSON.stringify(deleteResponse)}`;
-	} catch (error) {
-		output.textContent = `Offer Deletion Failed: ${error.message}`;
 	}
 });
