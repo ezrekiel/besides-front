@@ -126,6 +126,13 @@ header {
 	display: flex;
 	align-items: center;
 	height: 100%;
+	margin-right: 1vw;
+}
+
+.navigation-container {
+	height: 100%;
+	display: flex;
+	align-items: center;
 }
 
 .header-logo {
@@ -142,84 +149,38 @@ header {
 	padding: 5px;
 }
 
-.profile-button {
-	padding: 0 10px;
-	margin-right: 10px;
-	cursor: pointer;
-	border: none;
-	background: none;
-	height: 100%;
-	display: flex;
+.item-container {
+    display: flex;
 	align-items: center;
-}
 
-.avatar {
-	position: relative;
-	display: inline-block;
-	user-select: none;
-	background-color: rgb(231, 240, 255);
-	height: 30px;
-	width: 30px;
-	border-radius: 15px;
-}
-
-.avatar-svg {
-	fill: rgb(168, 202, 255);
-	border-radius: inherit;
-}
-
-.chevron {
-	line-height: 0 !important;
-}
-
-.profile-menu {
-	display: inline-flex;
-	flex-direction: column;
-	min-width: 180px;
-	max-width: 280px;
-	background-color: #007b8e;
-	padding: 6px 0;
-	box-shadow: 0 0 17px 0 rgba(23,50,68,.17);
-  }
-  
-.profile-menu-item,
-  .profile-standalone-trigger {
-	background-color: transparent;
+	color: rgba(255,255,255,.5);
+	fill: rgba(255,255,255,.5);
+	stroke: rgba(255,255,255,.5);
 	cursor: pointer;
-	border: none;
-  
-	user-select: none;
-	min-width: 64px;
-	line-height: 36px;
-	padding: 0 16px;
-  
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	flex: 1;
-  }
-
-.profile-menu-item {
-	color: white;
 }
-  
-  .profile-menu-item:hover {
-	background-color: #003d47;
-  }
-  
-  .profile-menu-item:active {
-	background-color: rgb(170, 170, 170);
-  }
-  
-  .profile-standalone-item {
-	background-color: rgb(239, 239, 239);
-  }
-  .profile-standalone-item:hover {
-	background-color: rgb(208, 208, 208);
-  }
-  .profile-standalone-item[aria-expanded='true'] {
-	background-color: rgb(208, 208, 208);
-  }
+
+.item-container:hover {
+	color: rgba(255,255,255,.75);
+	fill: rgba(255,255,255,.75);
+	stroke: rgba(255,255,255,.75);
+}
+
+.item-container > span {
+	line-height: 1;
+	font-size: 18px;
+}
+
+.spacer {
+	margin: 0 1rem;
+	font-size: 18px;
+	color: rgba(255,255,255,.5);
+}
+
+.item-container > svg {
+	height: 18px;
+	width: 18px;
+	margin-right: .5rem;
+}
 
 .offer {
 	border: 1px solid #d8dee4;
@@ -229,6 +190,12 @@ header {
 	box-sizing: border-box;
 	box-shadow: 0 .125rem .25rem #00000014;
 	margin: 0 1rem .75rem;
+	cursor: pointer;
+}
+
+.offer:hover {
+	border: 1px solid #558f4a;
+	box-shadow: 0 .125rem .25rem #00000014;
 }
 
 .offer-title {
@@ -280,56 +247,4 @@ header {
 	line-height: 1.3125rem;
 	margin: 0 .25rem .25rem 0;
 	padding: .1875rem .5rem;
-}
-
-.endpoint {
-	vertical-align: middle;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	display: inline-block;
-	font-weight: 500;
-	max-width: 75%;
-	font-family: proxima-nova;
-}
-.status {
-	float: right;
-	font-family: proxima-nova;
-	font-size : 14px;
-}
-
-.availability-timeline > svg {
-	height: 34px;
-	width: 100%;
-	overflow: hidden;
-}
-
-.availability-timeline > svg > rect:hover {
-	fill: #5e6c84;
-}
-
-.availability-rate {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	position: relative;
-	top: -2px;
-	color: #aeaeae;
-	font-size: .875rem;
-}
-
-.spacer {
-	background: #aeaeae;
-	opacity: 0.3;
-	flex: 1;
-	margin: 0.75rem 1rem 0 1rem;
-	height: 1px;
-}
-
-#delete-endpoint:hover {
-	cursor: pointer;
-}
-
-#delete-endpoint:hover path {
-	stroke: #cc0000;
 }

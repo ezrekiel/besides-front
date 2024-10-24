@@ -8,20 +8,29 @@
 </head>
 <body>
 	<header>
-		<button routerLink="/dashboard" class="header-logo">
-			<img src="../../assets/besides-logo.png">
-		</button>
+		<div class="navigation-container">
+			<button routerLink="/dashboard" class="header-logo">
+				<img src="../../assets/besides-logo.png">
+			</button>
+			<div class="item-container">
+				<span id="header-offers">Offres</span>
+			</div>
+			<div class="spacer">|</div>
+			<div class="item-container">
+				<span id="header-dashboard">Dashboard</span>
+			</div>
+		</div>
 		
 		<div class="profile-container">
-			<span id="username"></span>
-			<button class="profile-button" [cdkMenuTriggerFor]="menu">
-				<div class="avatar">
-					<svg class="avatar-svg" viewBox="0 0 48 48"><path d="M24,12 C28.418278,12 32,15.581722 32,20 L32,22 C32,26.418278 28.418278,30 24,30 C19.581722,30 16,26.418278 16,22 L16,20 C16,15.581722 19.581722,12 24,12 Z M24,32 C33.8734019,32 42.1092023,38.8710577 44,48 L4,48 C5.89079771,38.8710577 14.1265981,32 24,32 Z"></path></svg>
-				</div>
-				<div class="chevron">
-					<svg viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M8.14644661,10.1464466 C8.34170876,9.95118446 8.65829124,9.95118446 8.85355339,10.1464466 L12.4989857,13.7981758 L16.1502401,10.1464466 C16.3455022,9.95118446 16.6620847,9.95118446 16.8573469,10.1464466 C17.052609,10.3417088 17.052609,10.6582912 16.8573469,10.8535534 L12.4989857,15.2123894 L8.14644661,10.8535534 C7.95118446,10.6582912 7.95118446,10.3417088 8.14644661,10.1464466 Z"></path></svg>
-				</div>
-			</button>
+			<div class="item-container">
+				<svg viewBox="0 0 24 24"><path d="M6 8C6 4.6863 8.6863 2 12 2 15.3137 2 18 4.6863 18 8 18 11.3137 15.3137 14 12 14 8.6863 14 6 11.3137 6 8ZM5.4309 16.9025C7.0559 16.2213 9.2233 16 12 16 14.771 16 16.9351 16.2204 18.5586 16.8981 20.3012 17.6255 21.3708 18.8613 21.941 20.6587 22.1528 21.3267 21.6518 22 20.9592 22H3.0346C2.3448 22 1.8468 21.3297 2.0569 20.6654 2.6254 18.8681 3.6912 17.6318 5.4309 16.9025Z"></path></svg>
+				<span id="header-username"></span>
+			</div>
+			<div class="spacer">|</div>
+			<div class="item-container">
+				<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+				<span id="signout">Déconnexion</span>
+			</div>
 		</div>
 	</header>
 

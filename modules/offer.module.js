@@ -1,10 +1,15 @@
 import { offerService } from '../services/offer.service.js';
+import { tokenService } from '../services/token.service.js';
 import { userService } from '../services/user.service.js';
 import { authService } from '../services/auth.service.js';
 import { domHelper } from '../helpers/dom.helper.js';
 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-bar');
+const signoutButton = document.getElementById('signout');
+const usernameButton = document.getElementById('header-username');
+const offersButton = document.getElementById('header-offers');
+const dashboardButton = document.getElementById('header-dashboard');
 
 function translateToRelativeTime(postedAt) {
     const now = new Date();
@@ -47,6 +52,10 @@ function createOfferFrames(parentElement, offers) {
 		offerTags.forEach(offerTag => domHelper.createHTMLElement('div', {class: 'tag'}, tagsContainer, offerTag));
         
 		domHelper.createHTMLElement('div', {class: 'offer-publication-time'}, offerElement, "Offre publiée " + translateToRelativeTime(offer.postedAt));
+
+        offerElement.addEventListener('click', function() {
+            console.log(offer.title); //TODO : Implement the offer details feature
+        });
 	});
 }
 
@@ -59,7 +68,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	// Returns username in the header
 	const currentUser = JSON.parse(userService.getUser());
 	if (currentUser) {
-		const username = document.getElementById('username');
+		const username = document.getElementById('header-username');
 		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
 	}
 
@@ -88,4 +97,21 @@ searchInput.addEventListener('keypress', async function(event) {
 	if (event.key !== 'Enter') return;
 
 	handleSearchResults(searchInput.value);
+});
+
+signoutButton.addEventListener('click', function() {
+    tokenService.destroySession();
+    userService.destroySession();
+    
+	window.location.href = '/besides-front/views/signin/signin.html';
+});
+
+usernameButton.addEventListener('click', function() {
+	window.location.href = '/besides-front/views/profile/profile.html';
+});
+offersButton.addEventListener('click', function() {
+	window.location.href = '/besides-front/views/offers/offers.html';
+});
+dashboardButton.addEventListener('click', function() {
+	window.location.href = '/besides-front/views/dashboard/dashboard.html';
 });

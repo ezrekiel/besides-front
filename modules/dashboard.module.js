@@ -4,7 +4,6 @@ import { companyService } from '../services/company.service.js';
 import { offerService } from '../services/offer.service.js';
 import { domHelper } from '../helpers/dom.helper.js';
 import { EDIT_SVG, DELETE_SVG, PROPERTIES_NAMES_MAPPING } from '../helpers/constants.helper.js';
-import { Company } from '../models/company.model.js';
 
 const usersManagementButton = document.getElementById('users-management');
 const companiesManagementButton = document.getElementById('companies-management');
@@ -15,6 +14,9 @@ const getResourceForm = document.getElementById('getResourceForm');
 const updateResourceForm = document.getElementById('updateResourceForm');
 const deleteResourceForm = document.getElementById('deleteResourceForm');
 const output = document.getElementById('output');
+const usernameButton = document.getElementById('header-username');
+const offersButton = document.getElementById('header-offers');
+const dashboardButton = document.getElementById('header-dashboard');
 
 function createResourceTable(parentElement, resources) {
 	parentElement.replaceChildren();
@@ -46,7 +48,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 	const currentUser = JSON.parse(userService.getUser());
 	if (currentUser) {
-		const username = document.getElementById('username');
+		const username = document.getElementById('header-username');
 		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
 	}
 });
@@ -167,4 +169,14 @@ deleteResourceForm.addEventListener('submit', async (e) => {
 	} catch (error) {
 		output.textContent = `Resource Deletion Failed: ${error.message}`;
 	}
+});
+
+usernameButton.addEventListener('click', function() {
+	window.location.href = '/besides-front/views/profile/profile.html';
+});
+offersButton.addEventListener('click', function() {
+	window.location.href = '/besides-front/views/offers/offers.html';
+});
+dashboardButton.addEventListener('click', function() {
+	window.location.href = '/besides-front/views/dashboard/dashboard.html';
 });
