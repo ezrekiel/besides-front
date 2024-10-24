@@ -67,6 +67,79 @@ body {
 	width: 80%;
 }
 
+#createButton {
+	background-color: #13aa52;
+	border: 1px solid #13aa52;
+	border-radius: 4px;
+	box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+	box-sizing: border-box;
+	color: #fff;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 400;
+	outline: none;
+	outline: 0;
+	padding: 10px 25px;
+	text-align: center;
+	transform: translateY(0);
+	transition: transform 150ms, box-shadow 150ms;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+  
+#createButton {
+	background-color: green;
+	border-radius: 4px;
+	border-style: none;
+	box-sizing: border-box;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.5;
+	margin: 0;
+	max-width: none;
+	min-height: 44px;
+	min-width: 10px;
+	outline: none;
+	overflow: hidden;
+	padding: 9px 20px 8px;
+	position: relative;
+	text-align: center;
+	text-transform: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: 100%;
+}
+  
+#createButton:hover {
+	opacity: .75;
+}
+
+.modal {
+	display: none; /* La modal est masquée par défaut */
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+}
+  
+.modal-content {
+	background-color: #fff;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	max-width: 600px;
+}
+
 .breadcrumb {
 	width: 100%;
 	height: 48px;
@@ -112,8 +185,98 @@ body {
     background-color: #f5f5f5;
 }
 
+/* MODAL */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+	animation: fadeIn 0.3s;
+	overflow-y: auto; /* Permet de scroller si le contenu est trop grand */
+  }
 
+  .modal-content {
+	background-color: #fff;
+	margin: 5% auto;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	width: 80%;
+	max-width: 600px;
+	max-height: 90vh; /* Limite la hauteur de la modal à 90% de la fenêtre */
+	overflow-y: auto; /* Rendre le contenu scrollable */
+	animation: slideDown 0.3s ease-out;
+  }
+  
 
+@keyframes slideDown {
+	from { transform: translateY(-50px); opacity: 0; }
+	to { transform: translateY(0); opacity: 1; }
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+}
+
+form label {
+	display: block;
+	margin: 10px 0 5px;
+	color: #333;
+}
+
+form input, form select {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.form-actions {
+	text-align: right;
+}
+
+.form-actions button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.form-actions button[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+.form-actions button[type="button"] {
+	background-color: #f44336;
+	color: white;
+}
+
+.form-actions button[type="button"]:hover {
+	background-color: #e53935;
+}
+
+/* FIN MODAL */
 
 header {
 	position : relative;
