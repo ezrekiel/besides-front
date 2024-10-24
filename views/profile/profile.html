@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="profile.css">
+	<title>Profile</title>
+</head>
+<body>
+	<header>
+		<div class="navigation-container">
+			<button routerLink="/dashboard" class="header-logo">
+				<img src="../../assets/besides-logo.png">
+			</button>
+			<div class="item-container">
+				<span id="header-offers">Offres</span>
+			</div>
+			<div class="spacer">|</div>
+			<div class="item-container">
+				<span id="header-dashboard">Dashboard</span>
+			</div>
+		</div>
+		
+		<div class="profile-container">
+			<div class="item-container">
+				<svg viewBox="0 0 24 24"><path d="M6 8C6 4.6863 8.6863 2 12 2 15.3137 2 18 4.6863 18 8 18 11.3137 15.3137 14 12 14 8.6863 14 6 11.3137 6 8ZM5.4309 16.9025C7.0559 16.2213 9.2233 16 12 16 14.771 16 16.9351 16.2204 18.5586 16.8981 20.3012 17.6255 21.3708 18.8613 21.941 20.6587 22.1528 21.3267 21.6518 22 20.9592 22H3.0346C2.3448 22 1.8468 21.3297 2.0569 20.6654 2.6254 18.8681 3.6912 17.6318 5.4309 16.9025Z"></path></svg>
+				<span id="header-username"></span>
+			</div>
+			<div class="spacer">|</div>
+			<div class="item-container">
+				<svg viewBox="0 0 24 24"><path d="M6 8C6 4.6863 8.6863 2 12 2 15.3137 2 18 4.6863 18 8 18 11.3137 15.3137 14 12 14 8.6863 14 6 11.3137 6 8ZM5.4309 16.9025C7.0559 16.2213 9.2233 16 12 16 14.771 16 16.9351 16.2204 18.5586 16.8981 20.3012 17.6255 21.3708 18.8613 21.941 20.6587 22.1528 21.3267 21.6518 22 20.9592 22H3.0346C2.3448 22 1.8468 21.3297 2.0569 20.6654 2.6254 18.8681 3.6912 17.6318 5.4309 16.9025Z"></path></svg>
+				<span id="signout">Déconnexion</span>
+			</div>
+		</div>
+	</header>
+
+	<div class="content-wrapper">
+		<div class="wrapper">
+			<h1 class="edit-profile-title" id="edit-profile-title"></h1>
+			<div class="edit-profile-container">
+				<form id="edit-profile-form">
+					<label for="username">Nom d'utilisateur</label>
+					<input type="text" id="username" name="username">
+
+					<div class="form-group-row">
+						<div class="form-group">
+							<label for="firstname">Prénom</label>
+							<input type="text" id="firstname" name="firstname">
+						</div>
+						<div class="form-group">
+							<label for="lastname">Nom</label>
+							<input type="text" id="lastname" name="lastname">
+						</div>
+						<div class="form-group">
+							<label for="phoneNumber">Téléphone</label>
+							<input type="tel" id="phoneNumber" name="phoneNumber">
+						</div>
+					</div>
+	
+					<div class="form-group-row">
+						<div class="form-group">
+							<label for="address">Adresse</label>
+							<input type="text" id="address" name="address">
+						</div>
+						<div class="form-group">
+							<label for="zipCode">Code postal</label>
+							<input type="text" id="zipCode" name="zipCode">
+						</div>
+						<div class="form-group">
+							<label for="city">Ville</label>
+							<input type="text" id="city" name="city">
+						</div>
+						<div class="form-group">
+							<label for="country">Pays</label>
+							<input type="text" id="country" name="country">
+						</div>
+					</div>
+	
+	
+					<label for="password">Nouveau mot de passe</label>
+					<input type="password" id="password" name="password">
+	
+					<label for="password">Confirmation du mot de passe</label>
+					<input type="password" id="password-confirm" name="password">
+	
+					<button class="submit-button" type="submit">Enregistrer et Fermer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="../../modules/profile.module.js"></script>
+</body>
+</html>

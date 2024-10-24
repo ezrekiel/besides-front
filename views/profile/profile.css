@@ -1,0 +1,164 @@
+@font-face {
+	font-family: "proxima-nova";
+	src: url('../../assets/proxima-nova.otf');
+}
+
+body {
+	background-color: #fff;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+	margin: 0;
+	padding: 0;
+}
+
+/*############# Header #############*/
+
+header {
+	height: 48px;
+	border-bottom: 1px solid #d8dee4;
+	box-shadow: 0px 4px 6px -1px rgba(41, 85, 115, 0.21);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #343a40;
+}
+
+.profile-container, .header-logo {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	margin-right: 1vw;
+}
+
+.navigation-container {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.header-logo {
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+.header-logo > img {
+	box-sizing: border-box;
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 100%;
+	padding: 5px;
+}
+
+.item-container {
+    display: flex;
+	align-items: center;
+
+	color: rgba(255,255,255,.5);
+	fill: rgba(255,255,255,.5);
+	stroke: rgba(255,255,255,.5);
+	cursor: pointer;
+}
+
+.item-container:hover {
+	color: rgba(255,255,255,.75);
+	fill: rgba(255,255,255,.75);
+	stroke: rgba(255,255,255,.75);
+}
+
+.item-container > span {
+	line-height: 1;
+	font-size: 18px;
+}
+
+.spacer {
+	margin: 0 1rem;
+	font-size: 18px;
+	color: rgba(255,255,255,.5);
+}
+
+.item-container > svg {
+	height: 18px;
+	width: 18px;
+	margin-right: .5rem;
+}
+
+/*############# Main content #############*/
+
+.content-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.wrapper {
+	width: 90%;
+	max-width: 850px;
+}
+
+h1 {
+	text-align: center;
+}
+
+
+.edit-profile-container {
+	background-color: #f6f8fa;
+	border: 1px solid #d8dee4;
+	border-radius: 6px;
+
+	width: 100%;
+	padding: 20px;
+	margin: 0px;	
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+form > label, .form-group > label {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 21px;
+	color: black;
+	text-align: start;
+}
+
+input, .submit-button {
+	margin: 4px 0px 16px 0px;
+	padding: 5px 12px;
+	border: 1px solid #d0d7de;
+	border-radius: 4px;
+	background-color: white;
+	color: black;
+	line-height: 20px;
+}
+
+input:focus {
+	border-color:blue;
+}
+
+.submit-button {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.submit-button:hover {
+	background-color: #45a049;
+}
+
+.form-group-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

@@ -55,7 +55,7 @@ class UserService {
 	}
 
 	// Fetch a User by ID
-	async getUsersById(userID) {
+	async getUserById(userID) {
 		try {
 			const response = await fetch(`${this.USER_ENDPOINT}/${userID}`, {
 				method: 'GET',
@@ -86,12 +86,12 @@ class UserService {
 	}
 
 	// Update a User by ID
-	async updateUser(userID, username) {
+	async updateUser(userID, formValue) {
 		try {
 			const response = await fetch(`${this.USER_ENDPOINT}/${userID}`, {
 				method: 'PUT',
 				headers: this._getHeadersWithAuth(),
-				body: JSON.stringify({ username })
+				body: JSON.stringify(formValue),
 			});
 			
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
