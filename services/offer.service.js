@@ -64,6 +64,35 @@ class OfferService {
 		}
 	}
 
+	async getOffersByTitle(offerTitle) {
+		try {
+			const response = await fetch(`${this.OFFER_ENDPOINT}/title/${offerTitle}`, {
+				method: 'GET',
+				headers: this._getHeadersWithAuth()
+			});
+
+			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+			return await response.json();
+		} catch (error) {
+			console.error('Unable to fetch offer:', error.message);
+		}
+	}
+
+	async getOffersBySearch(searchTerm) {
+		try {
+			const response = await fetch(`${this.OFFER_ENDPOINT}/search?query=${encodeURIComponent(searchTerm)}`, {
+				method: 'GET',
+				headers: this._getHeadersWithAuth()
+			});
+	
+			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+			return await response.json();
+		} catch (error) {
+			console.error('Unable to fetch offers:', error.message);
+		}
+	}
+	
+
 	// Create a new offer
 	async createOffer(offerName) {
 		try {

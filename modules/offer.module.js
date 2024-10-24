@@ -1,6 +1,10 @@
 import { offerService } from '../services/offer.service.js';
 import { userService } from '../services/user.service.js';
 import { authService } from '../services/auth.service.js';
+import { domHelper } from '../helpers/dom.helper.js';
+
+const searchButton = document.getElementById('search-button');
+const searchInput = document.getElementById('search-bar');
 
 function translateToRelativeTime(postedAt) {
     const now = new Date();
@@ -30,45 +34,20 @@ function translateToRelativeTime(postedAt) {
     else return years === 1 ? "il y a 1 an" : `il y a ${years} ans`;
 }
 
-function createOfferFrame(offer) {
-    const offersContainer = document.querySelector('.offers-container');
+function createOfferFrames(parentElement, offers) {
+	parentElement.replaceChildren();
+	offers.forEach(offer => {
+		const offerElement = domHelper.createHTMLElement('div', {class: 'offer'}, parentElement);
+		domHelper.createHTMLElement('div', {class: 'offer-title'}, offerElement, offer.title);
+		domHelper.createHTMLElement('div', {class: 'offer-company'}, offerElement, offer.companyName);
+		domHelper.createHTMLElement('div', {class: 'offer-location'}, offerElement, `${offer.city} ${offer.zipCode}`);
 
-    const offerElement = document.createElement('div');
-    offerElement.classList.add('offer');
-
-    const offerTitle = document.createElement('div');
-    offerTitle.classList.add('offer-title');
-    offerTitle.innerHTML = `<b>${offer.title}</b>`;
-
-    const offerCompany = document.createElement('div');
-    offerCompany.classList.add('offer-company');
-    offerCompany.textContent = offer.companyName;
-
-    const offerLocation = document.createElement('div');
-    offerLocation.classList.add('offer-location');
-    offerLocation.textContent = `${offer.city} ${offer.zipCode}`;
-
-    const tagsContainer = document.createElement('div');
-	const offerTags = [offer.contractType, offer.salary, offer.jobType];
-    tagsContainer.classList.add('tags');
-	offerTags.forEach(offerTag => {
-        const tag = document.createElement('div');
-        tag.classList.add('tag');
-        tag.textContent = offerTag;
-        tagsContainer.appendChild(tag);
+		const tagsContainer = domHelper.createHTMLElement('div', {class: 'tags'}, offerElement);
+		const offerTags = [offer.contractType, offer.salary, offer.jobType];
+		offerTags.forEach(offerTag => domHelper.createHTMLElement('div', {class: 'tag'}, tagsContainer, offerTag));
+        
+		domHelper.createHTMLElement('div', {class: 'offer-publication-time'}, offerElement, "Offre publiée " + translateToRelativeTime(offer.postedAt));
 	});
-
-    const offerPublicationTime = document.createElement('div');
-    offerPublicationTime.classList.add('offer-publication-time');
-    offerPublicationTime.textContent = "Offre publiée " + translateToRelativeTime(offer.postedAt);
-
-    offerElement.appendChild(offerTitle);
-    offerElement.appendChild(offerCompany);
-    offerElement.appendChild(offerLocation);
-    offerElement.appendChild(tagsContainer);
-    offerElement.appendChild(offerPublicationTime);
-
-    offersContainer.appendChild(offerElement);
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -86,12 +65,27 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 	try {
 		const offers = await offerService.getAllOffers();
-		console.log(offers);
 		if (!offers) return;
-		offers.forEach(offer => {
-			createOfferFrame(offer);
-		});
+
+		const offerContainer = document.getElementById('offers-container');
+		createOfferFrames(offerContainer, offers);
 	} catch (error) {
-		console.log(`Fetching Offers Failed: ${error.message}`);
+		console.error(`Fetching Offers Failed: ${error.message}`);
 	}
+});
+
+async function handleSearchResults(searchValue) {
+    const offerContainer = document.getElementById('offers-container');
+	const offers = await offerService.getOffersBySearch(searchValue);
+    createOfferFrames(offerContainer, offers);
+}
+
+searchButton.addEventListener('click', async function() {
+	handleSearchResults(searchInput.value);
+});
+
+searchInput.addEventListener('keypress', async function(event) {
+	if (event.key !== 'Enter') return;
+
+	handleSearchResults(searchInput.value);
 });
