@@ -40,8 +40,6 @@ class CompanyService {
 		}
 	}
 
-	// commentaire test pour push
-
 	// Fetch a company by ID
 	async getCompanyById(id) {
 		try {
