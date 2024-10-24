@@ -8,6 +8,7 @@ import { EDIT_SVG, DELETE_SVG, PROPERTIES_NAMES_MAPPING } from '../helpers/const
 const companiesManagementButton = document.getElementById('companies-management');
 const offersManagementButton = document.getElementById('offers-management');
 const usersManagementButton = document.getElementById('users-management');
+const newRessourceButton = document.getElementById('createButton');
 const usernameButton = document.getElementById('header-username');
 const offersButton = document.getElementById('header-offers');
 
@@ -129,7 +130,6 @@ newRessourceButton.addEventListener('click', async () => {
 					});
 					console.log('Données du formulaire:', data);
 					modal.style.display = 'none';
-					
 				};
 
 			break;
