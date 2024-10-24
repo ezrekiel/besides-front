@@ -3,9 +3,8 @@ export const DELETE_SVG = '<svg width="24px" height="24px" viewBox="0 0 24 24" f
 
 export const PROPERTIES_NAMES_MAPPING = {
 	"userID" : "Id",
-	"companyID" : "Id entreprise",
-	"firstname" : "Prénom",
-	"lastname" : "Nom",
+	"firstName" : "Prénom",
+	"lastName" : "Nom",
 	"username" : "E-mail",
 
 	"id" : "Id",

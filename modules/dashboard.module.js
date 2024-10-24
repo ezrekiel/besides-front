@@ -1,8 +1,10 @@
 import { authService } from '../services/auth.service.js';
 import { userService } from '../services/user.service.js';
+import { companyService } from '../services/company.service.js';
 import { offerService } from '../services/offer.service.js';
 import { domHelper } from '../helpers/dom.helper.js';
 import { EDIT_SVG, DELETE_SVG, PROPERTIES_NAMES_MAPPING } from '../helpers/constants.helper.js';
+import { Company } from '../models/company.model.js';
 
 const usersManagementButton = document.getElementById('users-management');
 const companiesManagementButton = document.getElementById('companies-management');
@@ -15,20 +17,22 @@ const deleteResourceForm = document.getElementById('deleteResourceForm');
 const output = document.getElementById('output');
 
 function createResourceTable(parentElement, resources) {
+	parentElement.replaceChildren();
 	const table = domHelper.createHTMLElement('table', {}, parentElement);
 
 	//Table Head
 	const tableHead = domHelper.createHTMLElement('thead', {}, table);
 	const tableHeadRow = domHelper.createHTMLElement('tr', {}, tableHead);
-	Object.keys(resources[0]).forEach(key => domHelper.createHTMLElement('th', {}, tableHeadRow, PROPERTIES_NAMES_MAPPING[key]));
+	Object.keys(resources[0].getTableData()).forEach(key => domHelper.createHTMLElement('th', {}, tableHeadRow, PROPERTIES_NAMES_MAPPING[key]));
 	domHelper.createHTMLElement('th', {}, tableHeadRow, 'Editer');
 	domHelper.createHTMLElement('th', {}, tableHeadRow, 'Supprimer');
 
 	//Table Body
 	const tableBody = domHelper.createHTMLElement('tbody', {}, table);
 	resources.forEach(resource => {
+		const filterdResource = resource.getTableData();
 		const tableBodyRow = domHelper.createHTMLElement('tr', {}, tableBody);
-		Object.keys(resource).forEach(key => domHelper.createHTMLElement('td', {}, tableBodyRow, resource[key]));
+		Object.keys(filterdResource).forEach(key => domHelper.createHTMLElement('td', {}, tableBodyRow, filterdResource[key]));
 		domHelper.createHTMLElement('td', {}, tableBodyRow, EDIT_SVG);
 		domHelper.createHTMLElement('td', {}, tableBodyRow, DELETE_SVG);
 	});
@@ -50,8 +54,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 // Loads the list of all the users
 usersManagementButton.addEventListener('click', async () => {
 	try {
-		//unloadTable(); //TODO : Proper implementation of this shit
-
 		const pageInformations = document.getElementById('page-name');
 		const contentTitle = document.getElementById('content-name');
 		pageInformations.textContent = 'Gestion utilisateurs';
@@ -98,7 +100,7 @@ offersManagementButton.addEventListener('click', async () => {
 		if (!offers) return;
 
 		const tableContainer = document.getElementById('content-table');
-		createResourceTable(tableContainer, companies);
+		createResourceTable(tableContainer, offers);
 	} catch(error) {
 		console.log(error);
 	}

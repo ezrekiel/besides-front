@@ -7,8 +7,8 @@ export class Offer {
         this.postedAt = postedAt, 
         this.jobType = jobType, 
         this.workingTime = workingTime, 
-        this.contractType = contractType, 
-        this.salary = salary, 
+        this.contractType = contractType,
+        this.salary = salary,
         this.adress = adress, 
         this.zipCode = zipCode, 
         this.country = country, 
@@ -17,9 +17,9 @@ export class Offer {
 
     getTableData() {
         return {
-            "Id" : this.offerID,
-            "Offre" : this.title, 
-            "Contrat" : this.contractType
+            offerID : this.offerID,
+            title : this.title, 
+            contractType : this.contractType
         };
     }
 }

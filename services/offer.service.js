@@ -24,22 +24,22 @@ class OfferService {
 				method: 'GET',
 				headers: this._getHeadersWithAuth()
 			});
-			
+
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 			const offersResponse = await response.json();
 			const offers = offersResponse.map(offerData => new Offer(
-				offerData.offerID,
-				offerData.title,
-				offerData.companyName,
-				offerData.libelle,
-				offerData.postedAt,
-				offerData.jobType,
-				offerData.workingTime,
-				offerData.contractType,
-				offerData.salary,
-				offerData.adress,
-				offerData.zipCode,
-				offerData.country,
+				offerData.offerID, 
+				offerData.title, 
+				offerData.companyName, 
+				offerData.libelle, 
+				offerData.postedAt, 
+				offerData.jobType, 
+				offerData.workingTime, 
+				offerData.contractType, 
+				offerData.salary, 
+				offerData.adress, 
+				offerData.zipCode, 
+				offerData.country, 
 				offerData.city
 			));
 

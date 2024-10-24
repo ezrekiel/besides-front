@@ -1,3 +1,4 @@
+import { User } from '../models/user.model.js';
 import { tokenService } from './token.service.js';
 
 class UserService {
@@ -39,7 +40,15 @@ class UserService {
 			});
 			
 			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-			return await response.json();
+			const usersResponse = await response.json();
+			const users = usersResponse.map(userData => new User(
+				userData.userID,
+				userData.firstname,
+				userData.lastname,
+				userData.username
+			));
+
+			return users;
 		} catch (error) {
 			console.error('Unable to fetch User:', error.message);
 		}
