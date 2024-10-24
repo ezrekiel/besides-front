@@ -5,18 +5,13 @@ import { offerService } from '../services/offer.service.js';
 import { domHelper } from '../helpers/dom.helper.js';
 import { EDIT_SVG, DELETE_SVG, PROPERTIES_NAMES_MAPPING } from '../helpers/constants.helper.js';
 
-const usersManagementButton = document.getElementById('users-management');
 const companiesManagementButton = document.getElementById('companies-management');
 const offersManagementButton = document.getElementById('offers-management');
-const createResourceForm = document.getElementById('createResourceForm');
-const getAllResourcesBtn = document.getElementById('getAllResourcesBtn');
-const getResourceForm = document.getElementById('getResourceForm');
-const updateResourceForm = document.getElementById('updateResourceForm');
-const deleteResourceForm = document.getElementById('deleteResourceForm');
-const output = document.getElementById('output');
+const usersManagementButton = document.getElementById('users-management');
+const dashboardButton = document.getElementById('header-dashboard');
 const usernameButton = document.getElementById('header-username');
 const offersButton = document.getElementById('header-offers');
-const dashboardButton = document.getElementById('header-dashboard');
+const newRessourceButton = document.getElementById('createButton');
 
 function createResourceTable(parentElement, resources) {
 	parentElement.replaceChildren();
@@ -51,6 +46,104 @@ window.addEventListener('DOMContentLoaded', async () => {
 		const username = document.getElementById('header-username');
 		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
 	}
+});
+
+newRessourceButton.addEventListener('click', async () => {
+    const contentTitle = document.getElementById('content-name');
+
+    switch(contentTitle.textContent) {
+        case 'Utilisateurs':
+            console.log('creation utilisateur');
+			const modalFrame = domHelper.createHTMLElement('div', {id: 'userModal', class: 'modal'}, document.body);
+			const modalContent = domHelper.createHTMLElement('div', {class: 'modal-content'}, modalFrame);
+			const closeModal = domHelper.createHTMLElement('span', {class: 'close'}, modalContent);
+
+			closeModal.innerHTML = '&times;';
+			const modalFormTitle = domHelper.createHTMLElement('h2', {}, modalContent);
+			modalFormTitle.textContent = 'Créer un nouvel utilisateur';
+			const modalForm = domHelper.createHTMLElement('form', {id: 'userForm'}, modalContent);
+
+			const fields = [
+				{label: 'Nom', type: 'text', id: 'lastName', name: 'nom'},
+				{label: 'Prénom', type: 'text', id: 'firstName', name: 'prenom'},
+				{label: 'Adresse E-mail', type: 'text', id: 'mail', name: 'prenom'},
+				{label: 'Mot de passe', type: 'password', id: 'password', name: 'password'},
+				{label: 'Administrateur', type: 'select', id: 'isAdmin', name: 'isAdmin', options: ['non', 'oui']},
+				{label: 'Date de naissance', type: 'date', id: 'birthday', name: 'birthday'},
+				{label: 'Téléphone', type: 'tel', id: 'phoneNumber', name: 'phoneNumber'},
+				{label: 'Genre', type: 'select', id: 'gender', name: 'gender', options: ['homme', 'femme']},
+				{label: 'Employeur', type: 'select', id: 'employer', name: 'employer', options: ['non', 'oui']},
+				{label: 'Adresse', type: 'text', id: 'adress', name: 'adress'},
+				{label: 'Code postal', type: 'text', id: 'zipCode', name: 'zipCode'},
+				{label: 'Pays', type: 'text', id: 'coutry', name: 'coutry'},
+				{label: 'Ville', type: 'text', id: 'city', name: 'city'}
+			  ];
+
+			  fields.forEach(field => {
+				const label = domHelper.createHTMLElement('label', {for: field.id}, modalForm);
+				label.textContent = field.label;
+			
+				if (field.type === 'select') {
+				  const select = domHelper.createHTMLElement('select', {id: field.id, name: field.name}, modalForm);
+				  field.options.forEach(option => {
+					const opt = domHelper.createHTMLElement('option', {value: option}, select);
+					opt.textContent = option;
+				  });
+				} else {
+				  domHelper.createHTMLElement('input', {type: field.type, id: field.id, name: field.name, required: 'true'}, modalForm);
+				}
+			  });
+
+				const formActions = domHelper.createHTMLElement('div', {class: 'form-actions'}, modalForm);
+				const submitButton = domHelper.createHTMLElement('button', {type: 'submit'}, formActions);
+				submitButton.textContent = 'Créer';
+
+				const cancelButton = domHelper.createHTMLElement('button', {type: 'button'}, formActions);
+				cancelButton.textContent = 'Annuler';
+
+				const modal = document.getElementById('userModal');
+				const btn = document.getElementById('createButton');
+
+				btn.onclick = function() {
+					modal.style.display = 'block';
+				};
+
+				closeModal.onclick = function() {
+					modal.style.display = 'none';
+				};
+
+				cancelButton.onclick = function() {
+					modal.style.display = 'none';
+				};
+
+				window.onclick = function(event) {
+					if (event.target == modal) {
+					modal.style.display = 'none';
+					}
+				};
+
+				modalForm.onsubmit = function(event) {
+					event.preventDefault();
+					const formData = new FormData(modalForm);
+					const data = {};
+					formData.forEach((value, key) => {
+					data[key] = value;
+					});
+					console.log('Données du formulaire:', data);
+					modal.style.display = 'none';
+					
+				};
+
+			break;
+        case 'Entreprises':
+            console.log('creation entreprise');
+			break;
+		case 'Annonces':
+            console.log('creation annonce');
+			break;
+		default:
+			console.log('ca pas normal' + contentTitle);
+    }
 });
 
 // Loads the list of all the users
