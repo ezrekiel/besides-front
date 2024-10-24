@@ -47,97 +47,131 @@ window.addEventListener('DOMContentLoaded', async () => {
 	}
 });
 
+function createModalFrame(resource) {
+	const modalFrame = domHelper.createHTMLElement('div', {id: 'userModal', class: 'modal'}, document.body);
+	const modalContent = domHelper.createHTMLElement('div', {class: 'modal-content'}, modalFrame);
+	const closeModal = domHelper.createHTMLElement('span', {class: 'close'}, modalContent);
+
+	closeModal.innerHTML = '&times;';
+	const modalFormTitle = domHelper.createHTMLElement('h2', {}, modalContent);
+	modalFormTitle.textContent = 'Créer un nouvel utilisateur';
+	const modalForm = domHelper.createHTMLElement('form', {id: 'userForm'}, modalContent); //important
+
+	const contentTitle = document.getElementById('content-name');
+	if (contentTitle.textContent == 'Utilisateurs') {
+		const fields = [
+			{label: 'Nom', type: 'text', id: 'lastName', name: 'nom'},
+			{label: 'Prénom', type: 'text', id: 'firstName', name: 'prenom'},
+			{label: 'Adresse E-mail', type: 'text', id: 'mail', name: 'prenom'},
+			{label: 'Mot de passe', type: 'password', id: 'password', name: 'password'},
+			{label: 'Administrateur', type: 'select', id: 'isAdmin', name: 'isAdmin', options: ['non', 'oui']},
+			{label: 'Date de naissance', type: 'date', id: 'birthday', name: 'birthday'},
+			{label: 'Téléphone', type: 'tel', id: 'phoneNumber', name: 'phoneNumber'},
+			{label: 'Genre', type: 'select', id: 'gender', name: 'gender', options: ['homme', 'femme']},
+			{label: 'Employeur', type: 'select', id: 'employer', name: 'employer', options: ['non', 'oui']},
+			{label: 'Adresse', type: 'text', id: 'adress', name: 'adress'},
+			{label: 'Code postal', type: 'text', id: 'zipCode', name: 'zipCode'},
+			{label: 'Pays', type: 'text', id: 'coutry', name: 'coutry'},
+			{label: 'Ville', type: 'text', id: 'city', name: 'city'}
+		];
+	}
+
+	if (contentTitle.textContent == 'Entreprises') {
+		const fields = [
+			{label: 'Nom', type: 'text', id: 'companyName', name: 'companyName'},
+			{label: 'Statut légal', type: 'text', id: 'legalStatus', name: 'legalStatus'},
+			{label: 'Secteur d', type: 'text', id: 'activitySector', name: 'activitySector'}
+		];
+	}
+
+	if (contentTitle.textContent == 'Annonces') {
+		const fields = [
+			{label: 'Nom', type: 'text', id: 'lastName', name: 'nom'},
+			{label: 'Prénom', type: 'text', id: 'firstName', name: 'prenom'},
+			{label: 'Adresse E-mail', type: 'text', id: 'mail', name: 'prenom'},
+			{label: 'Mot de passe', type: 'password', id: 'password', name: 'password'},
+			{label: 'Administrateur', type: 'select', id: 'isAdmin', name: 'isAdmin', options: ['non', 'oui']},
+			{label: 'Date de naissance', type: 'date', id: 'birthday', name: 'birthday'},
+			{label: 'Téléphone', type: 'tel', id: 'phoneNumber', name: 'phoneNumber'},
+			{label: 'Genre', type: 'select', id: 'gender', name: 'gender', options: ['homme', 'femme']},
+			{label: 'Employeur', type: 'select', id: 'employer', name: 'employer', options: ['non', 'oui']},
+			{label: 'Adresse', type: 'text', id: 'adress', name: 'adress'},
+			{label: 'Code postal', type: 'text', id: 'zipCode', name: 'zipCode'},
+			{label: 'Pays', type: 'text', id: 'coutry', name: 'coutry'},
+			{label: 'Ville', type: 'text', id: 'city', name: 'city'}
+		];
+	}
+
+	  fields.forEach(field => {
+		const label = domHelper.createHTMLElement('label', {for: field.id}, modalForm);
+		label.textContent = field.label;
+	
+		if (field.type === 'select') {
+		  const select = domHelper.createHTMLElement('select', {id: field.id, name: field.name}, modalForm);
+		  field.options.forEach(option => {
+			const opt = domHelper.createHTMLElement('option', {value: option}, select);
+			opt.textContent = option;
+		  });
+		} else {
+		  domHelper.createHTMLElement('input', {type: field.type, id: field.id, name: field.name, required: 'true'}, modalForm);
+		}
+	  });
+
+		const formActions = domHelper.createHTMLElement('div', {class: 'form-actions'}, modalForm);
+		const submitButton = domHelper.createHTMLElement('button', {type: 'submit'}, formActions);
+		submitButton.textContent = 'Créer';
+
+		const cancelButton = domHelper.createHTMLElement('button', {type: 'button'}, formActions);
+		cancelButton.textContent = 'Annuler';
+
+		const modal = document.getElementById('userModal');
+		const btn = document.getElementById('createButton');
+
+		btn.onclick = function() {
+			modal.style.display = 'block';
+		};
+
+		closeModal.onclick = function() {
+			modal.style.display = 'none';
+		};
+
+		cancelButton.onclick = function() {
+			modal.style.display = 'none';
+		};
+
+		window.onclick = function(event) {
+			if (event.target == modal) {
+			modal.style.display = 'none';
+			}
+		};
+
+		modalForm.onsubmit = function(event) {
+			event.preventDefault();
+			const formData = new FormData(modalForm);
+			const data = {};
+			formData.forEach((value, key) => {
+			data[key] = value;
+			});
+			console.log('Données du formulaire:', data);
+			modal.style.display = 'none';
+		};
+}
+
 newRessourceButton.addEventListener('click', async () => {
     const contentTitle = document.getElementById('content-name');
 
     switch(contentTitle.textContent) {
         case 'Utilisateurs':
             console.log('creation utilisateur');
-			const modalFrame = domHelper.createHTMLElement('div', {id: 'userModal', class: 'modal'}, document.body);
-			const modalContent = domHelper.createHTMLElement('div', {class: 'modal-content'}, modalFrame);
-			const closeModal = domHelper.createHTMLElement('span', {class: 'close'}, modalContent);
-
-			closeModal.innerHTML = '&times;';
-			const modalFormTitle = domHelper.createHTMLElement('h2', {}, modalContent);
-			modalFormTitle.textContent = 'Créer un nouvel utilisateur';
-			const modalForm = domHelper.createHTMLElement('form', {id: 'userForm'}, modalContent);
-
-			const fields = [
-				{label: 'Nom', type: 'text', id: 'lastName', name: 'nom'},
-				{label: 'Prénom', type: 'text', id: 'firstName', name: 'prenom'},
-				{label: 'Adresse E-mail', type: 'text', id: 'mail', name: 'prenom'},
-				{label: 'Mot de passe', type: 'password', id: 'password', name: 'password'},
-				{label: 'Administrateur', type: 'select', id: 'isAdmin', name: 'isAdmin', options: ['non', 'oui']},
-				{label: 'Date de naissance', type: 'date', id: 'birthday', name: 'birthday'},
-				{label: 'Téléphone', type: 'tel', id: 'phoneNumber', name: 'phoneNumber'},
-				{label: 'Genre', type: 'select', id: 'gender', name: 'gender', options: ['homme', 'femme']},
-				{label: 'Employeur', type: 'select', id: 'employer', name: 'employer', options: ['non', 'oui']},
-				{label: 'Adresse', type: 'text', id: 'adress', name: 'adress'},
-				{label: 'Code postal', type: 'text', id: 'zipCode', name: 'zipCode'},
-				{label: 'Pays', type: 'text', id: 'coutry', name: 'coutry'},
-				{label: 'Ville', type: 'text', id: 'city', name: 'city'}
-			  ];
-
-			  fields.forEach(field => {
-				const label = domHelper.createHTMLElement('label', {for: field.id}, modalForm);
-				label.textContent = field.label;
-			
-				if (field.type === 'select') {
-				  const select = domHelper.createHTMLElement('select', {id: field.id, name: field.name}, modalForm);
-				  field.options.forEach(option => {
-					const opt = domHelper.createHTMLElement('option', {value: option}, select);
-					opt.textContent = option;
-				  });
-				} else {
-				  domHelper.createHTMLElement('input', {type: field.type, id: field.id, name: field.name, required: 'true'}, modalForm);
-				}
-			  });
-
-				const formActions = domHelper.createHTMLElement('div', {class: 'form-actions'}, modalForm);
-				const submitButton = domHelper.createHTMLElement('button', {type: 'submit'}, formActions);
-				submitButton.textContent = 'Créer';
-
-				const cancelButton = domHelper.createHTMLElement('button', {type: 'button'}, formActions);
-				cancelButton.textContent = 'Annuler';
-
-				const modal = document.getElementById('userModal');
-				const btn = document.getElementById('createButton');
-
-				btn.onclick = function() {
-					modal.style.display = 'block';
-				};
-
-				closeModal.onclick = function() {
-					modal.style.display = 'none';
-				};
-
-				cancelButton.onclick = function() {
-					modal.style.display = 'none';
-				};
-
-				window.onclick = function(event) {
-					if (event.target == modal) {
-					modal.style.display = 'none';
-					}
-				};
-
-				modalForm.onsubmit = function(event) {
-					event.preventDefault();
-					const formData = new FormData(modalForm);
-					const data = {};
-					formData.forEach((value, key) => {
-					data[key] = value;
-					});
-					console.log('Données du formulaire:', data);
-					modal.style.display = 'none';
-				};
-
+			createModalFrame('Utilisateurs');
 			break;
         case 'Entreprises':
             console.log('creation entreprise');
+			createModalFrame('Entreprises');
 			break;
 		case 'Annonces':
             console.log('creation annonce');
+			createModalFrame('Annonces');
 			break;
 		default:
 			console.log('ca pas normal' + contentTitle);
