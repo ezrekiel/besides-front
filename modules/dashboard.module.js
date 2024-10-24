@@ -39,7 +39,11 @@ window.addEventListener('DOMContentLoaded', async () => {
 		window.location.href = '/besides-front/views/signin/signin.html';
 		return;
 	}
-
+	if(!authService.isAuthorized()) {
+		window.location.href = '/besides-front/views/offers/offers.html';
+		return;
+	}
+	
 	const currentUser = JSON.parse(userService.getUser());
 	if (currentUser) {
 		const username = document.getElementById('header-username');

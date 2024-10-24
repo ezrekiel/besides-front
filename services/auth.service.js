@@ -72,6 +72,13 @@ class AuthService {
 		const token = tokenService.getToken();
 		return token && this.isTokenValid(token);
 	}
+
+	isAuthorized() {
+		const user = userService.getUser();
+		if(!user) return false;
+
+		return user.isAdmin;
+	}
 }
 export const authService = new AuthService();
   
