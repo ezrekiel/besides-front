@@ -9,34 +9,33 @@ const searchInput = document.getElementById('search-bar');
 const signoutButton = document.getElementById('signout');
 const usernameButton = document.getElementById('header-username');
 const offersButton = document.getElementById('header-offers');
-const dashboardButton = document.getElementById('header-dashboard');
 
 function translateToRelativeTime(postedAt) {
-    const now = new Date();
-    const postedDate = new Date(postedAt);
-    
-    const diffInMs = now - postedDate;
-    
-    const seconds = Math.floor(diffInMs / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(days / 365);
+	const now = new Date();
+	const postedDate = new Date(postedAt);
+	
+	const diffInMs = now - postedDate;
+	
+	const seconds = Math.floor(diffInMs / 1000);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+	const months = Math.floor(days / 30);
+	const years = Math.floor(days / 365);
 
-    if (seconds < 60) return seconds <= 1 ? "à l'instant" : `il y a ${seconds} secondes`;
-    else if (minutes < 60) return minutes === 1 ? "il y a 1 minute" : `il y a ${minutes} minutes`;
-    else if (hours < 24) {
-        if (hours === 1) return "il y a 1 heure";
-        if (hours === 24 && now.getDate() === postedDate.getDate() + 1) return "hier";
-        return `il y a ${hours} heures`;
-    }
+	if (seconds < 60) return seconds <= 1 ? "à l'instant" : `il y a ${seconds} secondes`;
+	else if (minutes < 60) return minutes === 1 ? "il y a 1 minute" : `il y a ${minutes} minutes`;
+	else if (hours < 24) {
+		if (hours === 1) return "il y a 1 heure";
+		if (hours === 24 && now.getDate() === postedDate.getDate() + 1) return "hier";
+		return `il y a ${hours} heures`;
+	}
 	else if (days < 30) {
-        if (days === 1) return "hier";
-        return `il y a ${days} jours`;
-    }
+		if (days === 1) return "hier";
+		return `il y a ${days} jours`;
+	}
 	else if (months < 12)  return months === 1 ? "il y a 1 mois" : `il y a ${months} mois`;
-    else return years === 1 ? "il y a 1 an" : `il y a ${years} ans`;
+	else return years === 1 ? "il y a 1 an" : `il y a ${years} ans`;
 }
 
 function createOfferFrames(parentElement, offers) {
@@ -50,12 +49,12 @@ function createOfferFrames(parentElement, offers) {
 		const tagsContainer = domHelper.createHTMLElement('div', {class: 'tags'}, offerElement);
 		const offerTags = [offer.contractType, offer.salary, offer.jobType];
 		offerTags.forEach(offerTag => domHelper.createHTMLElement('div', {class: 'tag'}, tagsContainer, offerTag));
-        
+		
 		domHelper.createHTMLElement('div', {class: 'offer-publication-time'}, offerElement, "Offre publiée " + translateToRelativeTime(offer.postedAt));
 
-        offerElement.addEventListener('click', function() {
-            console.log(offer.title); //TODO : Implement the offer details feature
-        });
+		offerElement.addEventListener('click', function() {
+			console.log(offer.title); //TODO : Implement the offer details feature
+		});
 	});
 }
 
@@ -70,6 +69,16 @@ window.addEventListener('DOMContentLoaded', async () => {
 	if (currentUser) {
 		const username = document.getElementById('header-username');
 		username.textContent = `${currentUser.firstname} ${currentUser.lastname}`;
+
+		if(currentUser.isAdmin) {
+			const navigationContainer = document.getElementById('navigation-container');
+			domHelper.createHTMLElement('div', {class: 'spacer'}, navigationContainer, '|');
+			const itemContainer = domHelper.createHTMLElement('div', {class: 'item-container'}, navigationContainer);
+			const dashboardButton = domHelper.createHTMLElement('span', {id: 'header-dashboard'}, itemContainer, "Dashboard");
+			dashboardButton.addEventListener('click', function() {
+				window.location.href = '/besides-front/views/dashboard/dashboard.html';
+			});
+		}
 	}
 
 	try {
@@ -84,9 +93,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function handleSearchResults(searchValue) {
-    const offerContainer = document.getElementById('offers-container');
+	const offerContainer = document.getElementById('offers-container');
 	const offers = await offerService.getOffersBySearch(searchValue);
-    createOfferFrames(offerContainer, offers);
+	createOfferFrames(offerContainer, offers);
 }
 
 searchButton.addEventListener('click', async function() {
@@ -100,9 +109,9 @@ searchInput.addEventListener('keypress', async function(event) {
 });
 
 signoutButton.addEventListener('click', function() {
-    tokenService.destroySession();
-    userService.destroySession();
-    
+	tokenService.destroySession();
+	userService.destroySession();
+	
 	window.location.href = '/besides-front/views/signin/signin.html';
 });
 
@@ -111,7 +120,4 @@ usernameButton.addEventListener('click', function() {
 });
 offersButton.addEventListener('click', function() {
 	window.location.href = '/besides-front/views/offers/offers.html';
-});
-dashboardButton.addEventListener('click', function() {
-	window.location.href = '/besides-front/views/dashboard/dashboard.html';
 });

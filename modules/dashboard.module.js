@@ -8,10 +8,8 @@ import { EDIT_SVG, DELETE_SVG, PROPERTIES_NAMES_MAPPING } from '../helpers/const
 const companiesManagementButton = document.getElementById('companies-management');
 const offersManagementButton = document.getElementById('offers-management');
 const usersManagementButton = document.getElementById('users-management');
-const dashboardButton = document.getElementById('header-dashboard');
 const usernameButton = document.getElementById('header-username');
 const offersButton = document.getElementById('header-offers');
-const newRessourceButton = document.getElementById('createButton');
 
 function createResourceTable(parentElement, resources) {
 	parentElement.replaceChildren();
@@ -206,7 +204,4 @@ usernameButton.addEventListener('click', function() {
 });
 offersButton.addEventListener('click', function() {
 	window.location.href = '/besides-front/views/offers/offers.html';
-});
-dashboardButton.addEventListener('click', function() {
-	window.location.href = '/besides-front/views/dashboard/dashboard.html';
 });

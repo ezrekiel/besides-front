@@ -94,8 +94,9 @@ class UserService {
 				body: JSON.stringify(formValue),
 			});
 			
-			if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-			return await response.json();
+			const data = await response.json();
+			if (response.ok) return data;
+			else throw new Error(data.message);
 		} catch (error) {
 			console.error('Unable to update User:', error.message);
 		}

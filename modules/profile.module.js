@@ -1,12 +1,12 @@
 import { tokenService } from '../services/token.service.js';
 import { userService } from '../services/user.service.js';
 import { authService } from '../services/auth.service.js';
+import { domHelper } from '../helpers/dom.helper.js';
 
 const editProfileForm = document.getElementById('edit-profile-form');
 const usernameButton = document.getElementById('header-username');
-const signoutButton = document.getElementById('signout');
 const offersButton = document.getElementById('header-offers');
-const dashboardButton = document.getElementById('header-dashboard');
+const signoutButton = document.getElementById('signout');
 
 function populateFieldsValue(user) {
 	document.getElementById('username').value = user.username || '';
@@ -29,8 +29,17 @@ window.addEventListener('DOMContentLoaded', async () => {
 	if (currentUser) {
 		const username = document.getElementById('header-username');
 		const title = document.getElementById('edit-profile-title');
-		
 		username.textContent = title.textContent =`${currentUser.firstname} ${currentUser.lastname}`;
+
+		if(currentUser.isAdmin) {
+			const navigationContainer = document.getElementById('navigation-container');
+			domHelper.createHTMLElement('div', {class: 'spacer'}, navigationContainer, '|');
+			const itemContainer = domHelper.createHTMLElement('div', {class: 'item-container'}, navigationContainer);
+			const dashboardButton = domHelper.createHTMLElement('span', {id: 'header-dashboard'}, itemContainer, "Dashboard");
+			dashboardButton.addEventListener('click', function() {
+				window.location.href = '/besides-front/views/dashboard/dashboard.html';
+			});
+		}
 	}
 
 	const user = await userService.getUserById(currentUser.userID);
@@ -47,11 +56,10 @@ editProfileForm.addEventListener('submit', async function(event) {
 		const fields = ['username', 'firstname', 'lastname', 'phoneNumber', 'address', 'zipCode', 'city', 'country'];
 		const editForm = fields.reduce((form, field) => {
 			const value = document.getElementById(field).value || '';
-			if (value) form[field === 'firstname' ? 'firstName' : field === 'lastname' ? 'lastName' : field] = value;
+			if (value) form[field] = value;
 			return form;
 		}, {});
 		const editResponse = await userService.updateUser(currentUser.userID, editForm);
-		console.log(editResponse);
 	}
 });
 
@@ -67,7 +75,4 @@ usernameButton.addEventListener('click', function() {
 });
 offersButton.addEventListener('click', function() {
 	window.location.href = '/besides-front/views/offers/offers.html';
-});
-dashboardButton.addEventListener('click', function() {
-	window.location.href = '/besides-front/views/dashboard/dashboard.html';
 });
